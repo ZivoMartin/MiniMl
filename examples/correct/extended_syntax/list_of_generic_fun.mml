@@ -1,0 +1,14 @@
+let f x y =
+  x
+let g x y =
+  y
+let h x y =
+  x = y
+let l1 =
+  [f]
+let l2 =
+  g :: l1
+let l3 =
+  h :: l2
+let g2 =
+  hd (tl l3)

@@ -1,0 +1,11 @@
+let rev = 
+  fun l -> 
+    let rec aux = fun acc ->
+      fun l -> if ( = ) l [] then acc
+               else
+                 aux (( :: ) (hd l) acc) (tl l)
+    in
+    aux [] l
+  
+let l = 
+   rev (( :: ) 1 (( :: ) 2 (( :: ) 3 (( :: ) 4 []))))

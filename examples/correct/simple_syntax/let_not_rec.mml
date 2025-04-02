@@ -1,0 +1,3 @@
+let f = 4
+let f = fun x -> (+) f x
+let res = f 12

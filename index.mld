@@ -1,0 +1,7 @@
+{0:top Documentation du compilateur mini-ml dans le cadre du projet de compilation de la L3, Université de Bordeaux. }
+
+Depuis cette page, vous pouvez aisément accéder à la documentation des modules utiles pour implémenter le compilateur étape par étape.
+
+La bibliothèque {!Language} contient la définition du langage défini dans le cours (sous forme d’AST -- dans {!Language.Ast}), ainsi que les différents modules qui permettent de les interpréter, les construire depuis un texte, et les analyser. C’est la bibliothèque principale que vous devrez implémenter au cours du semestre.
+
+La bibliothèque {!Util} contient des modules utilitaires communs à plusieurs autres modules, et qui pourraient servir pour compiler d’autres langages.

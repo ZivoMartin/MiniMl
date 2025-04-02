@@ -1,0 +1,5 @@
+let a = let x = true in
+        if x then
+            let x = 4 in x
+        else
+            let x = 12 in x

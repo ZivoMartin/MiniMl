@@ -1,0 +1,10 @@
+let fibo n =
+  let rec aux m a b =
+    if m = n then
+      b
+    else
+      aux (m + 1) b (a + b)
+  in
+  aux 0 0 1
+let main =
+  fibo 10

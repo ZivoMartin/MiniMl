@@ -1,0 +1,5 @@
+let f = let rec aux = fun x -> fun y ->
+    if (=) x 0 then y
+    else aux ((-) x 1) ((+) y 1)
+    in 
+    aux

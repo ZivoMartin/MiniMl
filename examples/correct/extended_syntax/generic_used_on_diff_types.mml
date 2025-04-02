@@ -1,0 +1,8 @@
+let f =
+  let aux x =
+    x
+  in
+  if aux true then
+    aux 4
+  else
+    5

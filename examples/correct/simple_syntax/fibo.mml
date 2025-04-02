@@ -1,0 +1,11 @@
+let fibo = fun n ->
+  let rec aux = fun m -> fun a -> fun b ->
+              print b;
+              print "\n";
+              if ((=) m n) then
+               b
+              else
+               aux ((+) m 1) b ((+) a b) in
+  aux 0 0 1
+
+let main = fibo 10

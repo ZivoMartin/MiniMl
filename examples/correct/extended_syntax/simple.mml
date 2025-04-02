@@ -1,0 +1,20 @@
+let int =
+  5
+let bool =
+  true
+let string =
+  "toto"
+let unit =
+  ()
+let nil =
+  []
+let i_list =
+  1 :: []
+let f x =
+  x + 1
+let f_a x =
+  x
+let add =
+  ( + )
+let cat =
+  ( :: ) 4

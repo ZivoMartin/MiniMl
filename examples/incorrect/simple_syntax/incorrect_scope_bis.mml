@@ -1,0 +1,2 @@
+let f = let g = fun x -> x in
+        g x

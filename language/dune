@@ -1,0 +1,71 @@
+(ocamllex
+ (modules Lexer))
+
+(menhir
+ (modules Tokens)
+ (flags --table --inspection --only-tokens))
+
+(menhir
+ (modules Parser_simple Tokens)
+ (merge_into Parser_simple)
+ (flags
+  --dump
+  --table
+  --inspection
+  --explain
+  --automaton-graph
+  --cmly
+  --external-tokens
+  Tokens))
+
+(menhir
+ (modules Parser Tokens)
+ (merge_into Parser)
+ (flags
+  --dump
+  --table
+  --inspection
+  --explain
+  --automaton-graph
+  --cmly
+  --external-tokens
+  Tokens))
+
+(menhir
+ (modules Parser_calc Tokens)
+ (merge_into Parser_calc)
+ (flags
+  --dump
+  --table
+  --inspection
+  --explain
+  --automaton-graph
+  --cmly
+  --unused-tokens
+  --external-tokens
+  Tokens))
+
+(menhir
+ (modules Parser_sandbox Tokens)
+ (merge_into Parser_sandbox)
+ (flags
+  --dump
+  --table
+  --inspection
+  --explain
+  --automaton-graph
+  --cmly
+  --unused-tokens
+  --external-tokens
+  Tokens))
+
+(rule
+ (deps Parser.cmly)
+ (target Cmly.ml)
+ (action
+  (run ocaml-crunch --mode=plain --ext=cmly --output=Cmly.ml .)))
+
+(library
+ (name language)
+ (package mini_ml)
+ (libraries util menhirLib))

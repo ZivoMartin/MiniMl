@@ -1,0 +1,5 @@
+let idiotic a b c d e =
+  (a = b) && ((b = c) && ((c = d) && ((d = e) && (if a then
+                                                    4
+                                                  else
+                                                    4))))

@@ -1,0 +1,4 @@
+(library
+ (name util)
+ (package mini_ml)
+ (libraries menhirLib))

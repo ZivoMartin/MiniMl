@@ -1,0 +1,6 @@
+let f = 
+   let aux = fun x -> x in
+      if aux true then
+        aux 4
+     else
+       5

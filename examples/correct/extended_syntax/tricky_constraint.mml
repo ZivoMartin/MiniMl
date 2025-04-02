@@ -1,0 +1,8 @@
+let f =
+  let rec aux x y =
+    if x = 0 then
+      y
+    else
+      aux (x - 1) (y + 1)
+  in
+  aux

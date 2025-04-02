@@ -1,0 +1,4 @@
+let f x =
+  x
+let y =
+  4 + f
