@@ -32,7 +32,11 @@ let rec type_expr (counter : Counter.t) (env : type_lang Util.Environment.t)
          let (t, constraints) = type_expr counter env e1 in
          (fresh, t)::constraints
        else
+         let floor = Counter.get_fresh counter in
          let (t, constraints) = type_expr counter env e1 in
+         let (outer, inner) = split_constraint_by_floor floor constraints in
+         let sub = solve_constraints inner in
+         let t = apply_subst_in_type sub t in
          let _ = Util.Environment.add env name t in
          constraints in
      let (t, constraints) = type_expr counter env e2 in
@@ -55,11 +59,3 @@ let rec type_expr (counter : Counter.t) (env : type_lang Util.Environment.t)
      let tret = TUniv (Counter.get_fresh counter) in
      Annotation.set_type a tret;
      (tret, (tf, TFunc ([], targ, tret)) :: c1 @ c2)
-
-(* let rec type_expr (counter : Counter.t) (env : type_lang Util.Environment.t) *)
-(*     (expr : expr) = *)
-(*   (\* la suite est à modifier -- c’est juste là pour ne pas avoir de warning tant que vous ne travaillez pas dessus.*\) *)
-(*   ignore generalize_type_expr; *)
-(*   match expr with *)
-(*   | App (e, _, _) -> type_expr counter env e *)
-(*   | _ -> failwith "full typer not implemented" *)
