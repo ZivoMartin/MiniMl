@@ -49,6 +49,12 @@ let type_of_built_in (built_in : built_in) =
 
 let rec solve_constraints (constraints : (type_lang * type_lang) list) :
     (int * type_lang) list =
+  let rec occurs x1 t =  match t with
+    | TFunc(_, t1, t2) -> occurs x1 t1 || occurs x1 t2
+    | TUniv (x2) -> x2 = x1
+    | TList(_, t) -> occurs x1 t
+    | _ -> false in
+  
   let rec substitute_constraints n1 t1 constraints =
     match constraints with
     | [] -> []
@@ -61,20 +67,28 @@ let rec solve_constraints (constraints : (type_lang * type_lang) list) :
   | (TUniv x1, TUniv x2) :: r when x1 <= x2 ->
    (x1, TUniv x2) :: solve_constraints (substitute_constraints x1 (TUniv x2) r)
   | (TUniv x2, TUniv x1) :: r ->
-     (x1, TUniv x2) :: solve_constraints (substitute_constraints x1 (TUniv x2) r)
+     (x2, TUniv x1) :: solve_constraints (substitute_constraints x2 (TUniv x1) r)
 
   | (TList (_, t1), TList (_, t2)) :: r -> solve_constraints ((t1, t2) :: r)
   | (TFunc (_, p1, r1), TFunc (_, p2, r2)) :: r -> solve_constraints ((p1, p2) :: (r1, r2) :: r)
 
   | (TUniv x, t) :: r | (t, TUniv x) :: r
-    ->  (x, t) :: solve_constraints (substitute_constraints x t r)
+    ->  if occurs x t then
+          raise (Constraint_error (TUniv x, t))
+        else (x, t) :: solve_constraints (substitute_constraints x t r)
   | (t1, t2) :: _ ->
      raise (Constraint_error (t1, t2))
 
 let instantiate (counter : Counter.t) (type_lang : type_lang) : type_lang =
-  failwith "todo"
-  (* match type_lang with *)
-  (* | TList (l, t) -> TList (l ) *)
-  (* | TFunc (l, targ, tret) -> () *)
-  (* | _ -> type_lang -> () in *)
-
+  let rec helper counter type_lang map = 
+    match type_lang with
+    | TFunc (l, targ, tret) ->
+       let l = map @ (List.map (fun x -> (x, Counter.get_fresh counter)) l) in
+       TFunc ([], helper counter targ l, helper counter tret l)
+    | TList (l, t) -> TList ([], helper counter t (map @ (List.map (fun x -> (x, Counter.get_fresh counter)) l)))
+    | TUniv (x) as t -> (match List.find_opt (fun (original, _) -> original = x) map with
+                   | Some ((_, fresh)) -> TUniv (fresh)
+                   | None -> t)
+    | _ -> type_lang
+  in
+  helper counter type_lang []

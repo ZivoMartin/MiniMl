@@ -28,6 +28,7 @@ let rec type_expr (counter : Counter.t) (env : type_lang Util.Environment.t)
          let fresh = TUniv (Counter.get_fresh counter) in
          Util.Environment.add env name fresh;
          let (t, constraints) = type_expr counter env e1 in
+         let _ = Util.Environment.remove env name in
          (fresh, t)::constraints
        else
          let (t, constraints) = type_expr counter env e1 in
