@@ -1,0 +1,43 @@
+Parsed program:
+let f =
+  let aux x =
+    x
+  in
+  if aux true then
+    aux 4
+  else
+    5
+
+--Weak typing--
+  f : 'd 
+    constraints : [,'d = int,bool = 'c,'b -> 'b = bool -> 'c,'b -> 'b = int -> 'd]
+  ---Solving constraints:
+  Unable to unify bool and int
+  Annotated program:
+  let f : 'd =
+    let aux (x : 'b) : 'b =
+      (x : 'b)
+    in
+    if (aux : 'b -> 'b) true then
+      (aux : 'b -> 'b) 4
+    else
+      5
+  
+  
+---Full typing---
+   Types computed:
+   f : int
+   
+   Annotated program:
+   let f : int =
+     let aux (x : 'b) : 'b =
+       (x : 'b)
+     in
+     if (aux : (,'b)'b -> 'b) true then
+       (aux : (,'b)'b -> 'b) 4
+     else
+       5
+   
+   
+Execution of the program:
+Computed f = 4

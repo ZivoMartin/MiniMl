@@ -18,9 +18,9 @@ let rec type_expr (counter : Counter.t) (env : type_lang Util.Environment.t)
   | Var (name, a) -> (
       match Util.Environment.get env name with
       | Some t ->
-         let t_inst = instantiate counter t in
-         let _ = Annotation.set_type a t_inst in
-         (t_inst, [])
+         (* let t_inst = instantiate counter t in *)
+         let _ = Annotation.set_type a t in
+         (t, [])
       | _ -> failwith ("Invalid var name: " ^ name)
     )
   | IfThenElse (cond, ifb, elseb, a) ->
@@ -54,7 +54,7 @@ let rec type_expr (counter : Counter.t) (env : type_lang Util.Environment.t)
   | Let (is_rec, name, e1, e2, a) ->
      let floor = Counter.get_fresh counter in
 
-     let (var_type, constraints_var_building) =
+     let (_, constraints_var_building) =
        if is_rec then
          let fresh = TUniv (Counter.get_fresh counter) in
          Util.Environment.add env name fresh;
@@ -65,20 +65,18 @@ let rec type_expr (counter : Counter.t) (env : type_lang Util.Environment.t)
          type_expr counter env e1
      in
 
-     let (_, internal_constraints) = split_constraint_by_floor floor constraints_var_building in
+     let (global_constraints, internal_constraints) = split_constraint_by_floor floor constraints_var_building in
      let sub = solve_constraints internal_constraints in
-     let var_type = apply_subst_in_type sub var_type in
-
-     Annotation.set_type (get_expr_annotation e1) var_type;
-     let generalised = generalize_type_expr floor e1 in
-     Util.Environment.add env name generalised;
+     type_substitution_in_expr e1 sub;
+     let generalized = generalize_type_expr floor e1 in
+     Util.Environment.add env name generalized;
 
      let (t, constraints_e2) = type_expr counter env e2 in
-     Annotation.set_type a t;
-     Util.Environment.remove env name;
+     let sub = sub @ (solve_constraints (global_constraints @ internal_constraints @ constraints_e2)) in
+     type_substitution_in_expr e2 sub;
+     let generalized = generalize_type_expr floor e2 in
      
-     try
-       (t,  constraints_e2)
-     with
-     | Constraint_error (t1, t2) ->
-        raise (Failure ("Unable to unify " ^ string_of_type_lang t1 ^ " and " ^ string_of_type_lang t2))
+     Annotation.set_type a generalized;
+     Util.Environment.remove env name;
+     (t,  [])
+     
