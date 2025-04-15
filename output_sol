@@ -1,43 +1,43 @@
 Parsed program:
 let f =
-  let aux x =
-    x
+  let rec aux x y =
+    if x = 0 then
+      y
+    else
+      aux (x - 1) (y + 1)
   in
-  if aux true then
-    aux 4
-  else
-    5
+  aux
 
 --Weak typing--
-  f : 'g 
-    constraints : [,'c -> 'c = 'd -> 'e,'d = bool,'c -> 'c = 'f -> 'g,'f = int,'e = bool,'g = int]
+  f : 'c -> 'd -> 'd 
+    constraints : [,'b = 'c -> 'd -> 'd,(,'a)'a -> 'a -> bool = 'e -> 'f,'e = 'c,'f = 'g -> 'h,'g = int,int -> int -> int = 'i -> 'j,'i = 'c,'j = 'k -> 'l,'k = int,'b = 'm -> 'n,'m = 'l,int -> int -> int = 'o -> 'p,'o = 'd,'p = 'q -> 'r,'q = int,'n = 's -> 't,'s = 'r,'h = bool,'d = 't]
   ---Solving constraints:
-  Unable to unify bool and int
+  f : int -> int -> int
   Annotated program:
-  let f : 'g =
-    let aux (x : 'c) : 'c =
-      (x : 'c)
+  let f : int -> int -> int =
+    let rec aux (x : int) (y : int) : int =
+      if (x : int) = 0 then
+        (y : int)
+      else
+        (aux : int -> int -> int) ((x : int) - 1) ((y : int) + 1)
     in
-    if (aux : 'c -> 'c) true then
-      (aux : 'c -> 'c) 4
-    else
-      5
+    (aux : int -> int -> int)
   
   
 ---Full typing---
    Types computed:
-   f : int
+   f : int -> int -> int
    
    Annotated program:
-   let f : int =
-     let aux (x : 'b) : 'b =
-       (x : 'b)
+   let f : int -> int -> int =
+     let rec aux (x : int) (y : int) : int =
+       if (x : int) = 0 then
+         (y : int)
+       else
+         (aux : int -> int -> int) ((x : int) - 1) ((y : int) + 1)
      in
-     if (aux : (,'b)'b -> 'b) true then
-       (aux : (,'b)'b -> 'b) 4
-     else
-       5
+     (aux : int -> int -> int)
    
    
 Execution of the program:
-Computed f = 4
+Computed f = <fun>

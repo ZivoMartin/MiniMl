@@ -16,6 +16,7 @@ module Counter = struct
 end
 
 let type_of_built_in (built_in : built_in) =
+  let u = TUniv 0 in
   match built_in with
   | Add -> TFunc ([], TInt, TFunc ([], TInt, TInt))
   | Sub -> TFunc ([], TInt, TFunc ([], TInt, TInt))
@@ -24,8 +25,8 @@ let type_of_built_in (built_in : built_in) =
   | Mod -> TFunc ([], TInt, TFunc ([], TInt, TInt))
   | And -> TFunc ([], TBool, TFunc ([], TBool, TBool))
   | Or -> TFunc ([], TBool, TFunc ([], TBool, TBool))
-  | Eq -> TFunc ([], TInt, TFunc ([], TInt, TBool))
-  | Neq -> TFunc ([], TInt, TFunc ([], TInt, TBool))
+  | Eq -> TFunc ([0], u, TFunc ([], u, TBool))
+  | Neq -> TFunc ([0], u, TFunc ([], u, TBool))
   | Lt -> TFunc ([], TInt, TFunc ([], TInt, TBool))
   | Gt -> TFunc ([], TInt, TFunc ([], TInt, TBool))
   | Leq -> TFunc ([], TInt, TFunc ([], TInt, TBool))
@@ -34,18 +35,18 @@ let type_of_built_in (built_in : built_in) =
   | Cat ->
       TFunc
         ( [],
-          TList ([], TUniv 0),
-          TFunc ([], TList ([], TUniv 0), TList ([], TUniv 0)) )
+          TList ([0], u),
+          TFunc ([0], TList ([], u), TList ([0], u)) )
   | Append ->
       TFunc
         ( [],
-          TList ([], TUniv 0),
-          TFunc ([], TList ([], TUniv 0), TList ([], TUniv 0)) )
+          TList ([0], u),
+          TFunc ([0], TList ([0], u), TList ([0], u)) )
   | UMin -> TFunc ([], TInt, TInt)
   | Not -> TFunc ([], TBool, TBool)
-  | Head -> TFunc ([], TList ([], TUniv 0), TUniv 0)
-  | Tail -> TFunc ([], TList ([], TUniv 0), TUniv 0)
-  | Print -> TFunc ([], TString, TUnit)
+  | Head -> TFunc ([0], TList ([0], u), u)
+  | Tail -> TFunc ([0], TList ([0], u), u)
+  | Print -> TFunc ([0], u, TUnit)
 
 let rec solve_constraints (constraints : (type_lang * type_lang) list) :
     (int * type_lang) list =

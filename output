@@ -1,73 +1,43 @@
 Parsed program:
-let fibo n =
-  let rec aux m a b =
-    print b;
-     print "\n";
-     if m = n then
-       b
-     else
-       aux (m + 1) b (a + b)
+let f =
+  let rec aux x y =
+    if x = 0 then
+      y
+    else
+      aux (x - 1) (y + 1)
   in
-  aux 0 0 1
-let main =
-  fibo 10
+  aux
 
 --Weak typing--
-  Error wile typing fibo:
-   Invalid var name: aux
-  fibo : 'r 
-    constraints : []
-  main : 't 
-    constraints : [,'r = int -> 't]
+  f : 'c -> 'd -> 'd 
+    constraints : [,'b = 'c -> 'd -> 'd,(,'a)'a -> 'a -> bool = 'e -> 'f,'e = 'c,'f = 'g -> 'h,'g = int,int -> int -> int = 'i -> 'j,'i = 'c,'j = 'k -> 'l,'k = int,'b = 'm -> 'n,'m = 'l,int -> int -> int = 'o -> 'p,'o = 'd,'p = 'q -> 'r,'q = int,'n = 's -> 't,'s = 'r,'h = bool,'d = 't]
   ---Solving constraints:
-  fibo : 'r
-  main : 't
+  f : int -> int -> int
   Annotated program:
-  let fibo n =
-    let rec aux (m : 'd) (a : 'e) (b : 'f) : 'f =
-      print (b : 'f);
-       print "\n";
-       if (m : 'd) = (n : 'b) then
-         (b : 'f)
-       else
-         (aux : 'c) ((m : 'd) + 1) (b : 'f) ((a : 'e) + (b : 'f))
+  let f : int -> int -> int =
+    let rec aux (x : int) (y : int) : int =
+      if (x : int) = 0 then
+        (y : int)
+      else
+        (aux : int -> int -> int) ((x : int) - 1) ((y : int) + 1)
     in
-    aux 0 0 1
-  let main : 't =
-    (fibo : int -> 't) 10
+    (aux : int -> int -> int)
   
   
 ---Full typing---
-   Types computed:
-   fibo : (,'a,'b)'a -> 'b
-   main : 'd
+   110Types computed:
+   f : int -> int -> int
    
    Annotated program:
-   let fibo (n : 'a) : int =
-     let rec aux (m : 'c) (a : 'd) (b : 'e) : 'e =
-       print (b : 'e);
-        print "\n";
-        if (m : 'c) = (n : 'a) then
-          (b : 'e)
-        else
-          (aux : 'd) ((m : 'c) + 1) (b : 'e) ((a : 'd) + (b : 'e))
+   let f : int -> int -> int =
+     let rec aux (x : int) (y : int) : int =
+       if (x : int) = 0 then
+         (y : int)
+       else
+         (aux : int -> int -> int) ((x : int) - 1) ((y : int) + 1)
      in
-     (aux : (,'c,'d,'e)'c -> 'd -> 'e -> 'e) 0 0 1
-   let main : 'd =
-     (fibo : (,'a,'b)'a -> 'b) 10
+     (aux : int -> int -> int)
    
    
 Execution of the program:
-Computed fibo = <fun>
-1
-1
-2
-3
-5
-8
-13
-21
-34
-55
-89
-Computed main = 89
+Computed f = <fun>
