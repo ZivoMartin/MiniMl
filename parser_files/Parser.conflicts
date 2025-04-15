@@ -1,0 +1,73 @@
+
+** Conflict (shift/reduce) in state 124.
+** Token involved: R_SQ
+** This state is reached from main after reading:
+
+LET ID EQ L_SQ expr SEMICOLON expr
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+main 
+req_list EOF 
+req req_list 
+LET ID EQ expr 
+          or_expr 
+          and_expr 
+          eq_expr 
+          rel_expr 
+          add_expr 
+          mul_expr 
+          app_expr 
+          simple_expr 
+          L_SQ list_builder 
+               (?)
+
+** In state 124, looking ahead at R_SQ, reducing production
+** expr -> expr SEMICOLON expr
+** is permitted because of the following sub-derivation:
+
+expr R_SQ // lookahead token appears
+expr SEMICOLON expr . 
+
+** In state 124, looking ahead at R_SQ, shifting is permitted
+** because of the following sub-derivation:
+
+expr SEMICOLON list_builder 
+               expr . R_SQ 
+
+** Conflict (shift/reduce) in state 52.
+** Token involved: SUB
+** This state is reached from main after reading:
+
+LET ID EQ app_expr
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+main 
+req_list EOF 
+req req_list 
+LET ID EQ expr 
+          or_expr 
+          and_expr 
+          eq_expr 
+          rel_expr 
+          add_expr 
+          (?)
+
+** In state 52, looking ahead at SUB, reducing production
+** mul_expr -> app_expr
+** is permitted because of the following sub-derivation:
+
+add_expr SUB mul_expr // lookahead token appears
+mul_expr // lookahead token is inherited
+app_expr . 
+
+** In state 52, looking ahead at SUB, shifting is permitted
+** because of the following sub-derivation:
+
+mul_expr 
+app_expr 
+app_expr simple_expr 
+         . SUB simple_expr 

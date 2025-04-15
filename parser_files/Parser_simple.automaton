@@ -1,0 +1,1111 @@
+State 0:
+## Known stack suffix:
+##
+## LR(1) items:
+main' -> . main [ # ]
+## Transitions:
+-- On LET shift to state 1
+-- On req_list shift to state 83
+-- On req shift to state 85
+-- On main shift to state 87
+## Reductions:
+
+State 1:
+## Known stack suffix:
+## LET
+## LR(1) items:
+req -> LET . ID EQ expr [ LET EOF ]
+req -> LET . REC ID EQ expr [ LET EOF ]
+## Transitions:
+-- On REC shift to state 2
+-- On ID shift to state 80
+## Reductions:
+
+State 2:
+## Known stack suffix:
+## LET REC
+## LR(1) items:
+req -> LET REC . ID EQ expr [ LET EOF ]
+## Transitions:
+-- On ID shift to state 3
+## Reductions:
+
+State 3:
+## Known stack suffix:
+## LET REC ID
+## LR(1) items:
+req -> LET REC ID . EQ expr [ LET EOF ]
+## Transitions:
+-- On EQ shift to state 4
+## Reductions:
+
+State 4:
+## Known stack suffix:
+## LET REC ID EQ
+## LR(1) items:
+req -> LET REC ID EQ . expr [ LET EOF ]
+## Transitions:
+-- On TAIL shift to state 5
+-- On STRING shift to state 6
+-- On PRINT shift to state 7
+-- On NOT shift to state 8
+-- On NEG shift to state 9
+-- On L_SQ shift to state 10
+-- On L_PAR shift to state 12
+-- On LET shift to state 26
+-- On INT shift to state 30
+-- On IF shift to state 31
+-- On ID shift to state 32
+-- On HEAD shift to state 33
+-- On FUN shift to state 34
+-- On BOOL shift to state 37
+-- On simple_expr shift to state 38
+-- On expr shift to state 79
+-- On app_expr shift to state 42
+## Reductions:
+
+State 5:
+## Known stack suffix:
+## TAIL
+## LR(1) items:
+simple_expr -> TAIL . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> TAIL
+
+State 6:
+## Known stack suffix:
+## STRING
+## LR(1) items:
+simple_expr -> STRING . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> STRING
+
+State 7:
+## Known stack suffix:
+## PRINT
+## LR(1) items:
+simple_expr -> PRINT . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> PRINT
+
+State 8:
+## Known stack suffix:
+## NOT
+## LR(1) items:
+simple_expr -> NOT . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> NOT
+
+State 9:
+## Known stack suffix:
+## NEG
+## LR(1) items:
+simple_expr -> NEG . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> NEG
+
+State 10:
+## Known stack suffix:
+## L_SQ
+## LR(1) items:
+simple_expr -> L_SQ . R_SQ [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+-- On R_SQ shift to state 11
+## Reductions:
+
+State 11:
+## Known stack suffix:
+## L_SQ R_SQ
+## LR(1) items:
+simple_expr -> L_SQ R_SQ . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> L_SQ R_SQ
+
+State 12:
+## Known stack suffix:
+## L_PAR
+## LR(1) items:
+simple_expr -> L_PAR . ADD R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+simple_expr -> L_PAR . SUB R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+simple_expr -> L_PAR . MUL R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+simple_expr -> L_PAR . DIV R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+simple_expr -> L_PAR . MOD R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+simple_expr -> L_PAR . AND R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+simple_expr -> L_PAR . OR R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+simple_expr -> L_PAR . EQ R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+simple_expr -> L_PAR . NEQ R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+simple_expr -> L_PAR . LT R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+simple_expr -> L_PAR . GT R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+simple_expr -> L_PAR . LEQ R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+simple_expr -> L_PAR . GEQ R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+simple_expr -> L_PAR . CONCAT R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+simple_expr -> L_PAR . CAT R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+simple_expr -> L_PAR . APPEND R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+simple_expr -> L_PAR . R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+simple_expr -> L_PAR . expr R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+-- On TAIL shift to state 5
+-- On SUB shift to state 13
+-- On STRING shift to state 6
+-- On R_PAR shift to state 15
+-- On PRINT shift to state 7
+-- On OR shift to state 16
+-- On NOT shift to state 8
+-- On NEQ shift to state 18
+-- On NEG shift to state 9
+-- On MUL shift to state 20
+-- On MOD shift to state 22
+-- On L_SQ shift to state 10
+-- On L_PAR shift to state 12
+-- On LT shift to state 24
+-- On LET shift to state 26
+-- On LEQ shift to state 57
+-- On INT shift to state 30
+-- On IF shift to state 31
+-- On ID shift to state 32
+-- On HEAD shift to state 33
+-- On GT shift to state 59
+-- On GEQ shift to state 61
+-- On FUN shift to state 34
+-- On EQ shift to state 63
+-- On DIV shift to state 65
+-- On CONCAT shift to state 67
+-- On CAT shift to state 69
+-- On BOOL shift to state 37
+-- On APPEND shift to state 71
+-- On AND shift to state 73
+-- On ADD shift to state 75
+-- On simple_expr shift to state 38
+-- On expr shift to state 77
+-- On app_expr shift to state 42
+## Reductions:
+
+State 13:
+## Known stack suffix:
+## L_PAR SUB
+## LR(1) items:
+simple_expr -> L_PAR SUB . R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+-- On R_PAR shift to state 14
+## Reductions:
+
+State 14:
+## Known stack suffix:
+## L_PAR SUB R_PAR
+## LR(1) items:
+simple_expr -> L_PAR SUB R_PAR . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> L_PAR SUB R_PAR
+
+State 15:
+## Known stack suffix:
+## L_PAR R_PAR
+## LR(1) items:
+simple_expr -> L_PAR R_PAR . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> L_PAR R_PAR
+
+State 16:
+## Known stack suffix:
+## L_PAR OR
+## LR(1) items:
+simple_expr -> L_PAR OR . R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+-- On R_PAR shift to state 17
+## Reductions:
+
+State 17:
+## Known stack suffix:
+## L_PAR OR R_PAR
+## LR(1) items:
+simple_expr -> L_PAR OR R_PAR . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> L_PAR OR R_PAR
+
+State 18:
+## Known stack suffix:
+## L_PAR NEQ
+## LR(1) items:
+simple_expr -> L_PAR NEQ . R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+-- On R_PAR shift to state 19
+## Reductions:
+
+State 19:
+## Known stack suffix:
+## L_PAR NEQ R_PAR
+## LR(1) items:
+simple_expr -> L_PAR NEQ R_PAR . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> L_PAR NEQ R_PAR
+
+State 20:
+## Known stack suffix:
+## L_PAR MUL
+## LR(1) items:
+simple_expr -> L_PAR MUL . R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+-- On R_PAR shift to state 21
+## Reductions:
+
+State 21:
+## Known stack suffix:
+## L_PAR MUL R_PAR
+## LR(1) items:
+simple_expr -> L_PAR MUL R_PAR . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> L_PAR MUL R_PAR
+
+State 22:
+## Known stack suffix:
+## L_PAR MOD
+## LR(1) items:
+simple_expr -> L_PAR MOD . R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+-- On R_PAR shift to state 23
+## Reductions:
+
+State 23:
+## Known stack suffix:
+## L_PAR MOD R_PAR
+## LR(1) items:
+simple_expr -> L_PAR MOD R_PAR . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> L_PAR MOD R_PAR
+
+State 24:
+## Known stack suffix:
+## L_PAR LT
+## LR(1) items:
+simple_expr -> L_PAR LT . R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+-- On R_PAR shift to state 25
+## Reductions:
+
+State 25:
+## Known stack suffix:
+## L_PAR LT R_PAR
+## LR(1) items:
+simple_expr -> L_PAR LT R_PAR . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> L_PAR LT R_PAR
+
+State 26:
+## Known stack suffix:
+## LET
+## LR(1) items:
+expr -> LET . ID EQ expr IN expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+expr -> LET . REC ID EQ expr IN expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+-- On REC shift to state 27
+-- On ID shift to state 52
+## Reductions:
+
+State 27:
+## Known stack suffix:
+## LET REC
+## LR(1) items:
+expr -> LET REC . ID EQ expr IN expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+-- On ID shift to state 28
+## Reductions:
+
+State 28:
+## Known stack suffix:
+## LET REC ID
+## LR(1) items:
+expr -> LET REC ID . EQ expr IN expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+-- On EQ shift to state 29
+## Reductions:
+
+State 29:
+## Known stack suffix:
+## LET REC ID EQ
+## LR(1) items:
+expr -> LET REC ID EQ . expr IN expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+-- On TAIL shift to state 5
+-- On STRING shift to state 6
+-- On PRINT shift to state 7
+-- On NOT shift to state 8
+-- On NEG shift to state 9
+-- On L_SQ shift to state 10
+-- On L_PAR shift to state 12
+-- On LET shift to state 26
+-- On INT shift to state 30
+-- On IF shift to state 31
+-- On ID shift to state 32
+-- On HEAD shift to state 33
+-- On FUN shift to state 34
+-- On BOOL shift to state 37
+-- On simple_expr shift to state 38
+-- On expr shift to state 49
+-- On app_expr shift to state 42
+## Reductions:
+
+State 30:
+## Known stack suffix:
+## INT
+## LR(1) items:
+simple_expr -> INT . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> INT
+
+State 31:
+## Known stack suffix:
+## IF
+## LR(1) items:
+expr -> IF . expr THEN expr ELSE expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+-- On TAIL shift to state 5
+-- On STRING shift to state 6
+-- On PRINT shift to state 7
+-- On NOT shift to state 8
+-- On NEG shift to state 9
+-- On L_SQ shift to state 10
+-- On L_PAR shift to state 12
+-- On LET shift to state 26
+-- On INT shift to state 30
+-- On IF shift to state 31
+-- On ID shift to state 32
+-- On HEAD shift to state 33
+-- On FUN shift to state 34
+-- On BOOL shift to state 37
+-- On simple_expr shift to state 38
+-- On expr shift to state 44
+-- On app_expr shift to state 42
+## Reductions:
+
+State 32:
+## Known stack suffix:
+## ID
+## LR(1) items:
+simple_expr -> ID . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> ID
+
+State 33:
+## Known stack suffix:
+## HEAD
+## LR(1) items:
+simple_expr -> HEAD . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> HEAD
+
+State 34:
+## Known stack suffix:
+## FUN
+## LR(1) items:
+expr -> FUN . ID ARROW expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+-- On ID shift to state 35
+## Reductions:
+
+State 35:
+## Known stack suffix:
+## FUN ID
+## LR(1) items:
+expr -> FUN ID . ARROW expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+-- On ARROW shift to state 36
+## Reductions:
+
+State 36:
+## Known stack suffix:
+## FUN ID ARROW
+## LR(1) items:
+expr -> FUN ID ARROW . expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+-- On TAIL shift to state 5
+-- On STRING shift to state 6
+-- On PRINT shift to state 7
+-- On NOT shift to state 8
+-- On NEG shift to state 9
+-- On L_SQ shift to state 10
+-- On L_PAR shift to state 12
+-- On LET shift to state 26
+-- On INT shift to state 30
+-- On IF shift to state 31
+-- On ID shift to state 32
+-- On HEAD shift to state 33
+-- On FUN shift to state 34
+-- On BOOL shift to state 37
+-- On simple_expr shift to state 38
+-- On expr shift to state 39
+-- On app_expr shift to state 42
+## Reductions:
+
+State 37:
+## Known stack suffix:
+## BOOL
+## LR(1) items:
+simple_expr -> BOOL . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> BOOL
+
+State 38:
+## Known stack suffix:
+## simple_expr
+## LR(1) items:
+app_expr -> simple_expr . [ TAIL STRING PRINT NOT NEG L_SQ L_PAR INT ID HEAD BOOL ]
+expr -> simple_expr . [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+## Reductions:
+-- On TAIL STRING PRINT NOT NEG L_SQ L_PAR INT ID HEAD BOOL
+--   reduce production app_expr -> simple_expr
+-- On THEN SEMICOLON R_PAR LET IN EOF ELSE
+--   reduce production expr -> simple_expr
+
+State 39:
+## Known stack suffix:
+## FUN ID ARROW expr
+## LR(1) items:
+expr -> FUN ID ARROW expr . [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+expr -> expr . SEMICOLON expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+-- On SEMICOLON shift to state 40
+## Reductions:
+-- On THEN R_PAR LET IN EOF ELSE
+--   reduce production expr -> FUN ID ARROW expr
+
+State 40:
+## Known stack suffix:
+## expr SEMICOLON
+## LR(1) items:
+expr -> expr SEMICOLON . expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+-- On TAIL shift to state 5
+-- On STRING shift to state 6
+-- On PRINT shift to state 7
+-- On NOT shift to state 8
+-- On NEG shift to state 9
+-- On L_SQ shift to state 10
+-- On L_PAR shift to state 12
+-- On LET shift to state 26
+-- On INT shift to state 30
+-- On IF shift to state 31
+-- On ID shift to state 32
+-- On HEAD shift to state 33
+-- On FUN shift to state 34
+-- On BOOL shift to state 37
+-- On simple_expr shift to state 38
+-- On expr shift to state 41
+-- On app_expr shift to state 42
+## Reductions:
+
+State 41:
+## Known stack suffix:
+## expr SEMICOLON expr
+## LR(1) items:
+expr -> expr . SEMICOLON expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+expr -> expr SEMICOLON expr . [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+## Reductions:
+-- On THEN SEMICOLON R_PAR LET IN EOF ELSE
+--   reduce production expr -> expr SEMICOLON expr
+
+State 42:
+## Known stack suffix:
+## app_expr
+## LR(1) items:
+app_expr -> app_expr . simple_expr [ TAIL STRING PRINT NOT NEG L_SQ L_PAR INT ID HEAD BOOL ]
+expr -> app_expr . simple_expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+-- On TAIL shift to state 5
+-- On STRING shift to state 6
+-- On PRINT shift to state 7
+-- On NOT shift to state 8
+-- On NEG shift to state 9
+-- On L_SQ shift to state 10
+-- On L_PAR shift to state 12
+-- On INT shift to state 30
+-- On ID shift to state 32
+-- On HEAD shift to state 33
+-- On BOOL shift to state 37
+-- On simple_expr shift to state 43
+## Reductions:
+
+State 43:
+## Known stack suffix:
+## app_expr simple_expr
+## LR(1) items:
+app_expr -> app_expr simple_expr . [ TAIL STRING PRINT NOT NEG L_SQ L_PAR INT ID HEAD BOOL ]
+expr -> app_expr simple_expr . [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+## Reductions:
+-- On TAIL STRING PRINT NOT NEG L_SQ L_PAR INT ID HEAD BOOL
+--   reduce production app_expr -> app_expr simple_expr
+-- On THEN SEMICOLON R_PAR LET IN EOF ELSE
+--   reduce production expr -> app_expr simple_expr
+
+State 44:
+## Known stack suffix:
+## IF expr
+## LR(1) items:
+expr -> IF expr . THEN expr ELSE expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+expr -> expr . SEMICOLON expr [ THEN SEMICOLON ]
+## Transitions:
+-- On THEN shift to state 45
+-- On SEMICOLON shift to state 40
+## Reductions:
+
+State 45:
+## Known stack suffix:
+## IF expr THEN
+## LR(1) items:
+expr -> IF expr THEN . expr ELSE expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+-- On TAIL shift to state 5
+-- On STRING shift to state 6
+-- On PRINT shift to state 7
+-- On NOT shift to state 8
+-- On NEG shift to state 9
+-- On L_SQ shift to state 10
+-- On L_PAR shift to state 12
+-- On LET shift to state 26
+-- On INT shift to state 30
+-- On IF shift to state 31
+-- On ID shift to state 32
+-- On HEAD shift to state 33
+-- On FUN shift to state 34
+-- On BOOL shift to state 37
+-- On simple_expr shift to state 38
+-- On expr shift to state 46
+-- On app_expr shift to state 42
+## Reductions:
+
+State 46:
+## Known stack suffix:
+## IF expr THEN expr
+## LR(1) items:
+expr -> IF expr THEN expr . ELSE expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+expr -> expr . SEMICOLON expr [ SEMICOLON ELSE ]
+## Transitions:
+-- On SEMICOLON shift to state 40
+-- On ELSE shift to state 47
+## Reductions:
+
+State 47:
+## Known stack suffix:
+## IF expr THEN expr ELSE
+## LR(1) items:
+expr -> IF expr THEN expr ELSE . expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+-- On TAIL shift to state 5
+-- On STRING shift to state 6
+-- On PRINT shift to state 7
+-- On NOT shift to state 8
+-- On NEG shift to state 9
+-- On L_SQ shift to state 10
+-- On L_PAR shift to state 12
+-- On LET shift to state 26
+-- On INT shift to state 30
+-- On IF shift to state 31
+-- On ID shift to state 32
+-- On HEAD shift to state 33
+-- On FUN shift to state 34
+-- On BOOL shift to state 37
+-- On simple_expr shift to state 38
+-- On expr shift to state 48
+-- On app_expr shift to state 42
+## Reductions:
+
+State 48:
+## Known stack suffix:
+## IF expr THEN expr ELSE expr
+## LR(1) items:
+expr -> IF expr THEN expr ELSE expr . [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+expr -> expr . SEMICOLON expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+-- On SEMICOLON shift to state 40
+## Reductions:
+-- On THEN R_PAR LET IN EOF ELSE
+--   reduce production expr -> IF expr THEN expr ELSE expr
+
+State 49:
+## Known stack suffix:
+## LET REC ID EQ expr
+## LR(1) items:
+expr -> LET REC ID EQ expr . IN expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+expr -> expr . SEMICOLON expr [ SEMICOLON IN ]
+## Transitions:
+-- On SEMICOLON shift to state 40
+-- On IN shift to state 50
+## Reductions:
+
+State 50:
+## Known stack suffix:
+## LET REC ID EQ expr IN
+## LR(1) items:
+expr -> LET REC ID EQ expr IN . expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+-- On TAIL shift to state 5
+-- On STRING shift to state 6
+-- On PRINT shift to state 7
+-- On NOT shift to state 8
+-- On NEG shift to state 9
+-- On L_SQ shift to state 10
+-- On L_PAR shift to state 12
+-- On LET shift to state 26
+-- On INT shift to state 30
+-- On IF shift to state 31
+-- On ID shift to state 32
+-- On HEAD shift to state 33
+-- On FUN shift to state 34
+-- On BOOL shift to state 37
+-- On simple_expr shift to state 38
+-- On expr shift to state 51
+-- On app_expr shift to state 42
+## Reductions:
+
+State 51:
+## Known stack suffix:
+## LET REC ID EQ expr IN expr
+## LR(1) items:
+expr -> LET REC ID EQ expr IN expr . [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+expr -> expr . SEMICOLON expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+-- On SEMICOLON shift to state 40
+## Reductions:
+-- On THEN R_PAR LET IN EOF ELSE
+--   reduce production expr -> LET REC ID EQ expr IN expr
+
+State 52:
+## Known stack suffix:
+## LET ID
+## LR(1) items:
+expr -> LET ID . EQ expr IN expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+-- On EQ shift to state 53
+## Reductions:
+
+State 53:
+## Known stack suffix:
+## LET ID EQ
+## LR(1) items:
+expr -> LET ID EQ . expr IN expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+-- On TAIL shift to state 5
+-- On STRING shift to state 6
+-- On PRINT shift to state 7
+-- On NOT shift to state 8
+-- On NEG shift to state 9
+-- On L_SQ shift to state 10
+-- On L_PAR shift to state 12
+-- On LET shift to state 26
+-- On INT shift to state 30
+-- On IF shift to state 31
+-- On ID shift to state 32
+-- On HEAD shift to state 33
+-- On FUN shift to state 34
+-- On BOOL shift to state 37
+-- On simple_expr shift to state 38
+-- On expr shift to state 54
+-- On app_expr shift to state 42
+## Reductions:
+
+State 54:
+## Known stack suffix:
+## LET ID EQ expr
+## LR(1) items:
+expr -> LET ID EQ expr . IN expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+expr -> expr . SEMICOLON expr [ SEMICOLON IN ]
+## Transitions:
+-- On SEMICOLON shift to state 40
+-- On IN shift to state 55
+## Reductions:
+
+State 55:
+## Known stack suffix:
+## LET ID EQ expr IN
+## LR(1) items:
+expr -> LET ID EQ expr IN . expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+-- On TAIL shift to state 5
+-- On STRING shift to state 6
+-- On PRINT shift to state 7
+-- On NOT shift to state 8
+-- On NEG shift to state 9
+-- On L_SQ shift to state 10
+-- On L_PAR shift to state 12
+-- On LET shift to state 26
+-- On INT shift to state 30
+-- On IF shift to state 31
+-- On ID shift to state 32
+-- On HEAD shift to state 33
+-- On FUN shift to state 34
+-- On BOOL shift to state 37
+-- On simple_expr shift to state 38
+-- On expr shift to state 56
+-- On app_expr shift to state 42
+## Reductions:
+
+State 56:
+## Known stack suffix:
+## LET ID EQ expr IN expr
+## LR(1) items:
+expr -> LET ID EQ expr IN expr . [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+expr -> expr . SEMICOLON expr [ THEN SEMICOLON R_PAR LET IN EOF ELSE ]
+## Transitions:
+-- On SEMICOLON shift to state 40
+## Reductions:
+-- On THEN R_PAR LET IN EOF ELSE
+--   reduce production expr -> LET ID EQ expr IN expr
+
+State 57:
+## Known stack suffix:
+## L_PAR LEQ
+## LR(1) items:
+simple_expr -> L_PAR LEQ . R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+-- On R_PAR shift to state 58
+## Reductions:
+
+State 58:
+## Known stack suffix:
+## L_PAR LEQ R_PAR
+## LR(1) items:
+simple_expr -> L_PAR LEQ R_PAR . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> L_PAR LEQ R_PAR
+
+State 59:
+## Known stack suffix:
+## L_PAR GT
+## LR(1) items:
+simple_expr -> L_PAR GT . R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+-- On R_PAR shift to state 60
+## Reductions:
+
+State 60:
+## Known stack suffix:
+## L_PAR GT R_PAR
+## LR(1) items:
+simple_expr -> L_PAR GT R_PAR . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> L_PAR GT R_PAR
+
+State 61:
+## Known stack suffix:
+## L_PAR GEQ
+## LR(1) items:
+simple_expr -> L_PAR GEQ . R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+-- On R_PAR shift to state 62
+## Reductions:
+
+State 62:
+## Known stack suffix:
+## L_PAR GEQ R_PAR
+## LR(1) items:
+simple_expr -> L_PAR GEQ R_PAR . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> L_PAR GEQ R_PAR
+
+State 63:
+## Known stack suffix:
+## L_PAR EQ
+## LR(1) items:
+simple_expr -> L_PAR EQ . R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+-- On R_PAR shift to state 64
+## Reductions:
+
+State 64:
+## Known stack suffix:
+## L_PAR EQ R_PAR
+## LR(1) items:
+simple_expr -> L_PAR EQ R_PAR . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> L_PAR EQ R_PAR
+
+State 65:
+## Known stack suffix:
+## L_PAR DIV
+## LR(1) items:
+simple_expr -> L_PAR DIV . R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+-- On R_PAR shift to state 66
+## Reductions:
+
+State 66:
+## Known stack suffix:
+## L_PAR DIV R_PAR
+## LR(1) items:
+simple_expr -> L_PAR DIV R_PAR . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> L_PAR DIV R_PAR
+
+State 67:
+## Known stack suffix:
+## L_PAR CONCAT
+## LR(1) items:
+simple_expr -> L_PAR CONCAT . R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+-- On R_PAR shift to state 68
+## Reductions:
+
+State 68:
+## Known stack suffix:
+## L_PAR CONCAT R_PAR
+## LR(1) items:
+simple_expr -> L_PAR CONCAT R_PAR . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> L_PAR CONCAT R_PAR
+
+State 69:
+## Known stack suffix:
+## L_PAR CAT
+## LR(1) items:
+simple_expr -> L_PAR CAT . R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+-- On R_PAR shift to state 70
+## Reductions:
+
+State 70:
+## Known stack suffix:
+## L_PAR CAT R_PAR
+## LR(1) items:
+simple_expr -> L_PAR CAT R_PAR . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> L_PAR CAT R_PAR
+
+State 71:
+## Known stack suffix:
+## L_PAR APPEND
+## LR(1) items:
+simple_expr -> L_PAR APPEND . R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+-- On R_PAR shift to state 72
+## Reductions:
+
+State 72:
+## Known stack suffix:
+## L_PAR APPEND R_PAR
+## LR(1) items:
+simple_expr -> L_PAR APPEND R_PAR . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> L_PAR APPEND R_PAR
+
+State 73:
+## Known stack suffix:
+## L_PAR AND
+## LR(1) items:
+simple_expr -> L_PAR AND . R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+-- On R_PAR shift to state 74
+## Reductions:
+
+State 74:
+## Known stack suffix:
+## L_PAR AND R_PAR
+## LR(1) items:
+simple_expr -> L_PAR AND R_PAR . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> L_PAR AND R_PAR
+
+State 75:
+## Known stack suffix:
+## L_PAR ADD
+## LR(1) items:
+simple_expr -> L_PAR ADD . R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+-- On R_PAR shift to state 76
+## Reductions:
+
+State 76:
+## Known stack suffix:
+## L_PAR ADD R_PAR
+## LR(1) items:
+simple_expr -> L_PAR ADD R_PAR . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> L_PAR ADD R_PAR
+
+State 77:
+## Known stack suffix:
+## L_PAR expr
+## LR(1) items:
+expr -> expr . SEMICOLON expr [ SEMICOLON R_PAR ]
+simple_expr -> L_PAR expr . R_PAR [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+-- On SEMICOLON shift to state 40
+-- On R_PAR shift to state 78
+## Reductions:
+
+State 78:
+## Known stack suffix:
+## L_PAR expr R_PAR
+## LR(1) items:
+simple_expr -> L_PAR expr R_PAR . [ THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL ]
+## Transitions:
+## Reductions:
+-- On THEN TAIL STRING SEMICOLON R_PAR PRINT NOT NEG L_SQ L_PAR LET INT IN ID HEAD EOF ELSE BOOL
+--   reduce production simple_expr -> L_PAR expr R_PAR
+
+State 79:
+## Known stack suffix:
+## LET REC ID EQ expr
+## LR(1) items:
+expr -> expr . SEMICOLON expr [ SEMICOLON LET EOF ]
+req -> LET REC ID EQ expr . [ LET EOF ]
+## Transitions:
+-- On SEMICOLON shift to state 40
+## Reductions:
+-- On LET EOF
+--   reduce production req -> LET REC ID EQ expr
+
+State 80:
+## Known stack suffix:
+## LET ID
+## LR(1) items:
+req -> LET ID . EQ expr [ LET EOF ]
+## Transitions:
+-- On EQ shift to state 81
+## Reductions:
+
+State 81:
+## Known stack suffix:
+## LET ID EQ
+## LR(1) items:
+req -> LET ID EQ . expr [ LET EOF ]
+## Transitions:
+-- On TAIL shift to state 5
+-- On STRING shift to state 6
+-- On PRINT shift to state 7
+-- On NOT shift to state 8
+-- On NEG shift to state 9
+-- On L_SQ shift to state 10
+-- On L_PAR shift to state 12
+-- On LET shift to state 26
+-- On INT shift to state 30
+-- On IF shift to state 31
+-- On ID shift to state 32
+-- On HEAD shift to state 33
+-- On FUN shift to state 34
+-- On BOOL shift to state 37
+-- On simple_expr shift to state 38
+-- On expr shift to state 82
+-- On app_expr shift to state 42
+## Reductions:
+
+State 82:
+## Known stack suffix:
+## LET ID EQ expr
+## LR(1) items:
+expr -> expr . SEMICOLON expr [ SEMICOLON LET EOF ]
+req -> LET ID EQ expr . [ LET EOF ]
+## Transitions:
+-- On SEMICOLON shift to state 40
+## Reductions:
+-- On LET EOF
+--   reduce production req -> LET ID EQ expr
+
+State 83:
+## Known stack suffix:
+## req_list
+## LR(1) items:
+main -> req_list . EOF [ # ]
+## Transitions:
+-- On EOF shift to state 84
+## Reductions:
+
+State 84:
+## Known stack suffix:
+## req_list EOF
+## LR(1) items:
+main -> req_list EOF . [ # ]
+## Transitions:
+## Reductions:
+-- On #
+--   reduce production main -> req_list EOF
+
+State 85:
+## Known stack suffix:
+## req
+## LR(1) items:
+req_list -> req . req_list [ EOF ]
+req_list -> req . [ EOF ]
+## Transitions:
+-- On LET shift to state 1
+-- On req_list shift to state 86
+-- On req shift to state 85
+## Reductions:
+-- On EOF
+--   reduce production req_list -> req
+
+State 86:
+## Known stack suffix:
+## req req_list
+## LR(1) items:
+req_list -> req req_list . [ EOF ]
+## Transitions:
+## Reductions:
+-- On EOF
+--   reduce production req_list -> req req_list
+
+State 87:
+## Known stack suffix:
+## main
+## LR(1) items:
+main' -> main . [ # ]
+## Transitions:
+## Reductions:
+-- On #
+--   accept main
+

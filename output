@@ -1,43 +1,73 @@
 Parsed program:
-let f =
-  let aux x =
-    x
+let fibo n =
+  let rec aux m a b =
+    print b;
+     print "\n";
+     if m = n then
+       b
+     else
+       aux (m + 1) b (a + b)
   in
-  if aux true then
-    aux 4
-  else
-    5
+  aux 0 0 1
+let main =
+  fibo 10
 
 --Weak typing--
-  f : 'd 
-    constraints : [,'d = int,bool = 'c,'b -> 'b = bool -> 'c,'b -> 'b = int -> 'd]
+  Error wile typing fibo:
+   Invalid var name: aux
+  fibo : 'r 
+    constraints : []
+  main : 't 
+    constraints : [,'r = int -> 't]
   ---Solving constraints:
-  Unable to unify bool and int
+  fibo : 'r
+  main : 't
   Annotated program:
-  let f : 'd =
-    let aux (x : 'b) : 'b =
-      (x : 'b)
+  let fibo n =
+    let rec aux (m : 'd) (a : 'e) (b : 'f) : 'f =
+      print (b : 'f);
+       print "\n";
+       if (m : 'd) = (n : 'b) then
+         (b : 'f)
+       else
+         (aux : 'c) ((m : 'd) + 1) (b : 'f) ((a : 'e) + (b : 'f))
     in
-    if (aux : 'b -> 'b) true then
-      (aux : 'b -> 'b) 4
-    else
-      5
+    aux 0 0 1
+  let main : 't =
+    (fibo : int -> 't) 10
   
   
 ---Full typing---
    Types computed:
-   f : int
+   fibo : (,'a,'b)'a -> 'b
+   main : 'd
    
    Annotated program:
-   let f : int =
-     let aux (x : 'b) : 'b =
-       (x : 'b)
+   let fibo (n : 'a) : int =
+     let rec aux (m : 'c) (a : 'd) (b : 'e) : 'e =
+       print (b : 'e);
+        print "\n";
+        if (m : 'c) = (n : 'a) then
+          (b : 'e)
+        else
+          (aux : 'd) ((m : 'c) + 1) (b : 'e) ((a : 'd) + (b : 'e))
      in
-     if (aux : (,'b)'b -> 'b) true then
-       (aux : (,'b)'b -> 'b) 4
-     else
-       5
+     (aux : (,'c,'d,'e)'c -> 'd -> 'e -> 'e) 0 0 1
+   let main : 'd =
+     (fibo : (,'a,'b)'a -> 'b) 10
    
    
 Execution of the program:
-Computed f = 4
+Computed fibo = <fun>
+1
+1
+2
+3
+5
+8
+13
+21
+34
+55
+89
+Computed main = 89
