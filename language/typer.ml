@@ -66,18 +66,20 @@ let rec type_expr (counter : Counter.t) (env : type_lang Util.Environment.t)
          type_expr counter env e1
      in
 
+     let sub_and_gen constraints e =
+       let sub = solve_constraints constraints in
+       type_substitution_in_expr e sub;
+       generalize_type_expr floor e in
+
      let (internal_constraints, _) = split_constraint_by_floor floor constraints_var_building in
-     let sub = solve_constraints internal_constraints in
-     type_substitution_in_expr e1 sub;
-     let generalized = generalize_type_expr floor e1 in
+     let generalized = sub_and_gen internal_constraints e1 in
      Util.Environment.add env name generalized;
 
      let (_, constraints_e2) = type_expr counter env e2 in
-     let sub = solve_constraints (constraints_var_building @ constraints_e2) in
-     type_substitution_in_expr e2 sub;
-     let generalized = generalize_type_expr floor e2 in
+     let generalized = sub_and_gen (constraints_var_building @ constraints_e2) e2 in
+     Util.Environment.remove env name;
 
      Annotation.set_type a generalized;
-     Util.Environment.remove env name;
+
      (generalized,  [])
      
