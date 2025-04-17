@@ -7,6 +7,15 @@
 
 %start <Ast.t> main
 
+%left OR
+%left AND
+%nonassoc EQ NEQ LT GT LEQ GEQ
+%left ADD SUB
+%left MUL DIV MOD
+%right CONCAT CAT APPEND
+%right UMINUS
+
+
 %%
 
 main:
@@ -26,20 +35,34 @@ sugar_func_decl:
 | arg = ID EQ e = expr { Fun(arg, e, Annotation.create $loc) }
 | arg = ID e = sugar_func_decl { Fun(arg, e, Annotation.create $loc) }
 
+
 expr:
-| e = simple_expr { e }
-| IF test = expr THEN th = expr ELSE el = expr { IfThenElse(test,th,el,Annotation.create $loc) }
+| IF test = expr THEN th = expr ELSE el = expr
+    { IfThenElse(test, th, el, Annotation.create $loc) }
 
-| LET x = ID EQ e1 = expr IN e2 = expr { Let(false,x, e1 ,e2,Annotation.create $loc) }
-| LET REC x = ID EQ e1 = expr IN e2 = expr { Let(true,x, e1 ,e2,Annotation.create $loc) }
-| LET x = ID e1 = sugar_func_decl IN e2 = expr { Let(false,x, e1 ,e2,Annotation.create $loc) }
-| LET REC x = ID e1 = sugar_func_decl IN e2 = expr { Let(true,x, e1 ,e2,Annotation.create $loc) }
+| LET x = ID EQ e1 = expr IN e2 = expr
+    { Let(false, x, e1, e2, Annotation.create $loc) }
+| LET REC x = ID EQ e1 = expr IN e2 = expr
+    { Let(true, x, e1, e2, Annotation.create $loc) }
+| LET x = ID e1 = sugar_func_decl IN e2 = expr
+    { Let(false, x, e1, e2, Annotation.create $loc) }
+| LET REC x = ID e1 = sugar_func_decl IN e2 = expr
+    { Let(true, x, e1, e2, Annotation.create $loc) }
 
-| FUN x = ID ARROW e = expr { Fun(x,e,Annotation.create $loc) }
-| e1 = expr SEMICOLON e2 = expr { Ignore(e1,e2,Annotation.create $loc) }
-| e1 = app_expr e2 = simple_expr { App(e1,e2,Annotation.create $loc) }
-| SUB e = expr { App(Cst_func(UMin, Annotation.create $loc), e, Annotation.create $loc) }
-| lhs = simple_expr op = binop rhs = simple_expr { App(App(Cst_func(op, Annotation.create $loc), lhs, Annotation.create $loc), rhs, Annotation.create $loc) }
+| FUN x = ID ARROW e = expr
+    { Fun(x, e, Annotation.create $loc) }
+| e1 = expr SEMICOLON e2 = expr
+    { Ignore(e1, e2, Annotation.create $loc) }
+| e1 = expr op = binop e2 = expr
+    { App(App(Cst_func(op, Annotation.create $loc), e1, Annotation.create $loc), e2, Annotation.create $loc) }
+
+| SUB e = expr %prec UMINUS
+    { App(Cst_func(UMin, Annotation.create $loc), e, Annotation.create $loc) }
+| e1 = expr e2 = simple_expr
+    { App(e1, e2, Annotation.create $loc) }
+| e = simple_expr
+    { e }
+
 
 simple_expr:
 | i = INT { Cst_i(i,Annotation.create $loc) }
@@ -55,10 +78,6 @@ simple_expr:
 list_builder:
 | e = simple_expr R_SQ { App(App(Cst_func(Cat, Annotation.create $loc), e, Annotation.create $loc), Nil(Annotation.create $loc), Annotation.create $loc) }
 | e = simple_expr SEMICOLON  rest = list_builder { App(App(Cst_func(Cat, Annotation.create $loc), e, Annotation.create $loc), rest, Annotation.create $loc) }
-
-app_expr:
-| f = simple_expr { f }
-| f = app_expr e = simple_expr { App(f,e,Annotation.create $loc)} 
 
 %inline binop:
 | ADD   { Add }

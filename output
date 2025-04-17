@@ -1,43 +1,53 @@
 Parsed program:
-let f =
-  let rec aux x y =
-    if x = 0 then
-      y
-    else
-      aux (x - 1) (y + 1)
-  in
-  aux
+let apply f x =
+  f x
+let i =
+  apply (fun n ->
+         n + 1) 2
+let s =
+  apply (fun str ->
+         str ^ "!") "yo"
 
 --Weak typing--
-  f : 'c -> 'd -> 'd 
-    constraints : [,'b = 'c -> 'd -> 'd,(,'a)'a -> 'a -> bool = 'e -> 'f,'e = 'c,'f = 'g -> 'h,'g = int,int -> int -> int = 'i -> 'j,'i = 'c,'j = 'k -> 'l,'k = int,'b = 'm -> 'n,'m = 'l,int -> int -> int = 'o -> 'p,'o = 'd,'p = 'q -> 'r,'q = int,'n = 's -> 't,'s = 'r,'h = bool,'d = 't]
+  apply : 'b -> 'c -> 'e 
+    constraints : [,'b = 'd -> 'e,'d = 'c]
+  i : 'o 
+    constraints : [,int -> int -> int = 'h -> 'i,'h = 'g,'i = 'j -> 'k,'j = int,'b -> 'c -> 'e = 'l -> 'm,'l = 'g -> 'k,'m = 'n -> 'o,'n = int]
+  s : 'y 
+    constraints : [,string -> string -> string = 'r -> 's,'r = 'q,'s = 't -> 'u,'t = string,'b -> 'c -> 'e = 'v -> 'w,'v = 'q -> 'u,'w = 'x -> 'y,'x = string]
   ---Solving constraints:
-  f : int -> int -> int
+  apply : ('c -> 'e) -> 'c -> 'e
+  i : int
+  Unable to unify int and string
   Annotated program:
-  let f : int -> int -> int =
-    let rec aux (x : int) (y : int) : int =
-      if (x : int) = 0 then
-        (y : int)
-      else
-        (aux : int -> int -> int) ((x : int) - 1) ((y : int) + 1)
-    in
-    (aux : int -> int -> int)
+  let apply (f : 'c -> 'e) (x : 'c) : 'e =
+    (f : 'c -> 'e) (x : 'c)
+  let i : int =
+    (apply : (int -> int) -> int -> int) (fun n : int->
+                                          (n : int) + 1) 2
+  let s : 'y =
+    (apply : 'b -> 'c -> 'e) (fun str : 'q->
+                              (str : 'q) ^ "!") "yo"
   
   
 ---Full typing---
-   110Types computed:
-   f : int -> int -> int
+   Types computed:
+   apply : (,'a,'b)('a -> 'b) -> 'a -> 'b
+   i : int
+   s : string
    
    Annotated program:
-   let f : int -> int -> int =
-     let rec aux (x : int) (y : int) : int =
-       if (x : int) = 0 then
-         (y : int)
-       else
-         (aux : int -> int -> int) ((x : int) - 1) ((y : int) + 1)
-     in
-     (aux : int -> int -> int)
+   let apply (f : 'a -> 'b) (x : 'a) : 'b =
+     (f : 'a -> 'b) (x : 'a)
+   let i : int =
+     (apply : (,'a,'b)('a -> 'b) -> 'a -> 'b) (fun n : int->
+                                               (n : int) + 1) 2
+   let s : string =
+     (apply : (,'a,'b)('a -> 'b) -> 'a -> 'b) (fun str : string->
+                                               (str : string) ^ "!") "yo"
    
    
 Execution of the program:
-Computed f = <fun>
+Computed apply = <fun>
+Computed i = 3
+Computed s = yo!

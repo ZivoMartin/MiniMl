@@ -16,6 +16,8 @@ module Counter : sig
   val create : unit -> t
   (** Returns a counter initialized to 0*)
 
+  val get : t -> int
+  
   val get_fresh : t -> int
   (** Gets the next value of the counter and increments it. A counter will never return twice the same value. *)
 end

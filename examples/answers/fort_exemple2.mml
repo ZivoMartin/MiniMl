@@ -1,0 +1,3 @@
+let apply = fun f -> fun x -> f x
+let i = apply (fun n -> n + 1) 2
+let s = apply (fun str -> str ^ "!") "yo"

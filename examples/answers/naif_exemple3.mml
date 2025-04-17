@@ -1,0 +1,2 @@
+let apply = fun f -> fun x -> f x
+let a = apply (fun n -> n + 1) 3

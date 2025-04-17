@@ -4,7 +4,7 @@
 type type_lang =
   | TInt  (** int type *)
   | TBool  (** bool type *)
-  | TString (*** string type *)
+  | TString (** string type *)
   | TUnit  (** unit type (action) *)
   | TFunc of int list * type_lang * type_lang
       (** function type. Functions have only one parameter (function with several parameters ar represented by a function of the first parameter that has a function (with the remaining parameters) as a result). [TFunc(generic,param,result)] represents a function where [param] is the type of the parameter, [result] is the type of the result, and [generic] is the list of universal types that are generalized (i.e., which can be different for each call of the function). [generic] will be non-empty only for functions that are bound by a let. For example, the type 'a -> 'b -> 'a will be represented by [TFunc([0;1],TUniv(0),TFunc([],TUniv(1),TUniv(0)))]*)

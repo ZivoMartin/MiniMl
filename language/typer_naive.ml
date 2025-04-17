@@ -53,12 +53,16 @@ let rec type_expr (counter : Counter.t) (env : type_lang Util.Environment.t)
   | Ignore (e1, e2, a) ->
      let (_, constraints1) = type_expr counter env e1 in
      let (t, constraints2) = type_expr counter env e2 in
-     let _  = Annotation.set_type a t in (t, constraints1 @ constraints2)
+     let _  = Annotation.set_type a t in
+     (t, constraints1 @ constraints2)
   | App (f, arg, a) ->
-     let (tf, c1) = type_expr counter env f in
+     
+     let (tf, c1) = type_expr counter env f in     
      let (targ, c2) = type_expr counter env arg in
+
      let gen_targ = TUniv (Counter.get_fresh counter) in
      let tret = TUniv (Counter.get_fresh counter) in
+
      Annotation.set_type a tret;
      let constraints = [(tf, TFunc ([], gen_targ, tret)) ; (gen_targ, targ)] in
      (tret, c1 @ c2 @ constraints)
