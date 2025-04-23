@@ -1,53 +1,36 @@
 Parsed program:
-let apply f x =
-  f x
-let i =
-  apply (fun n ->
-         n + 1) 2
-let s =
-  apply (fun str ->
-         str ^ "!") "yo"
+let rev l =
+  let rec aux acc l =
+    if l = [] then
+      acc
+    else
+      aux ((hd l) :: acc) (tl l)
+  in
+  aux [] l
+let l =
+  rev (1 :: (2 :: (3 :: (4 :: []))))
 
 --Weak typing--
-  apply : 'b -> 'c -> 'e 
-    constraints : [,'b = 'd -> 'e,'d = 'c]
-  i : 'o 
-    constraints : [,int -> int -> int = 'h -> 'i,'h = 'g,'i = 'j -> 'k,'j = int,'b -> 'c -> 'e = 'l -> 'm,'l = 'g -> 'k,'m = 'n -> 'o,'n = int]
-  s : 'y 
-    constraints : [,string -> string -> string = 'r -> 's,'r = 'q,'s = 't -> 'u,'t = string,'b -> 'c -> 'e = 'v -> 'w,'v = 'q -> 'u,'w = 'x -> 'y,'x = string]
+  rev : 'b -> '_0 
+    constraints : [,'c = 'd -> 'e -> 'd,(,'a)'a -> 'a -> bool = 'f -> 'g,'f = 'e,'g = 'i -> 'j,'i = (,'h)'h list,(,'a)'a list -> 'a = 'k -> 'l,'k = 'e,(,'a)'a -> 'a list -> 'a list = 'm -> 'n,'m = 'l,'n = 'o -> 'p,'o = 'd,'c = 'q -> 'r,'q = 'p,(,'a)'a list -> 'a list = 's -> 't,'s = 'e,'r = 'u -> 'v,'u = 't,'j = bool,'d = 'v,'d -> 'e -> 'd = 'x -> 'y,'x = (,'w)'w list,'y = 'z -> '_0,'z = 'b]
+  l : '_20 
+    constraints : [,(,'a)'a -> 'a list -> 'a list = '_2 -> '_3,'_2 = int,(,'a)'a -> 'a list -> 'a list = '_4 -> '_5,'_4 = int,(,'a)'a -> 'a list -> 'a list = '_6 -> '_7,'_6 = int,(,'a)'a -> 'a list -> 'a list = '_8 -> '_9,'_8 = int,'_9 = '_11 -> '_12,'_11 = (,'�)'_10 list,'_7 = '_13 -> '_14,'_13 = '_12,'_5 = '_15 -> '_16,'_15 = '_14,'_3 = '_17 -> '_18,'_17 = '_16,'b -> '_0 = '_19 -> '_20,'_19 = '_18]
   ---Solving constraints:
-  apply : ('c -> 'e) -> 'c -> 'e
-  i : int
-  Unable to unify int and string
+  rev : (,'a)'a list -> 'a list
+  l : int list
   Annotated program:
-  let apply (f : 'c -> 'e) (x : 'c) : 'e =
-    (f : 'c -> 'e) (x : 'c)
-  let i : int =
-    (apply : (int -> int) -> int -> int) (fun n : int->
-                                          (n : int) + 1) 2
-  let s : 'y =
-    (apply : 'b -> 'c -> 'e) (fun str : 'q->
-                              (str : 'q) ^ "!") "yo"
+  let rev (l : (,'a)'a list) : 'a list =
+    let rec aux (acc : 'a list) (l : (,'a)'a list) : 'a list =
+      if (l : (,'a)'a list) = [] then
+        (acc : 'a list)
+      else
+        (aux : 'a list -> (,'a)'a list -> 'a list) ((hd (l : (,'a)'a list)) :: (acc : 'a list)) (tl (l : (,'a)'a list))
+    in
+    (aux : 'a list -> (,'a)'a list -> 'a list) [] (l : (,'a)'a list)
+  let l : int list =
+    (rev : (,'a)'a list -> int list) (1 :: (2 :: (3 :: (4 :: []))))
   
   
----Full typing---
-   Types computed:
-   apply : (,'a,'b)('a -> 'b) -> 'a -> 'b
-   i : int
-   s : string
-   
-   Annotated program:
-   let apply (f : 'a -> 'b) (x : 'a) : 'b =
-     (f : 'a -> 'b) (x : 'a)
-   let i : int =
-     (apply : (,'a,'b)('a -> 'b) -> 'a -> 'b) (fun n : int->
-                                               (n : int) + 1) 2
-   let s : string =
-     (apply : (,'a,'b)('a -> 'b) -> 'a -> 'b) (fun str : string->
-                                               (str : string) ^ "!") "yo"
-   
-   
 Execution of the program:
-Computed apply = <fun>
-Computed i = 3
-Computed s = yo!
+Computed rev = <fun>
+Computed l = [4;3;2;1]

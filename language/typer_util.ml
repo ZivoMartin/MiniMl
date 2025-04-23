@@ -34,12 +34,14 @@ let type_of_built_in (built_in : built_in) =
   | Leq -> TFunc ([0], u, TFunc ([], u, TBool))
   | Geq -> TFunc ([0], u, TFunc ([], u, TBool))
   | Concat -> TFunc ([], TString, TFunc ([], TString, TString))
-  | Cat -> TFunc ([0], TList ([], u), TFunc ([], TList ([], u), TList ([], u)))
-  | Append -> TFunc([0], TList ([], u), TFunc ([], TList ([], u), TList ([], u)))
+
+  | Cat -> TFunc ([0], u, TFunc ([], TList ([], u), TList ([], u)))
+  | Append -> TFunc ([0], TList ([], u), TFunc ([], TList ([], u), TList ([], u)))
+  | Head -> TFunc ([0], TList ([], u), u)
+  | Tail -> TFunc ([0], TList ([], u), TList ([], u))
+
   | UMin -> TFunc ([], TInt, TInt)
   | Not -> TFunc ([], TBool, TBool)
-  | Head -> TFunc ([0], TList ([], u), u)
-  | Tail -> TFunc ([0], TList ([], u), u)
   | Print -> TFunc ([0], u, TUnit)
 
 

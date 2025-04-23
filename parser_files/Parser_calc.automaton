@@ -1,0 +1,216 @@
+State 0:
+## Known stack suffix:
+##
+## LR(1) items:
+main' -> . main [ # ]
+## Transitions:
+-- On NEG shift to state 1
+-- On L_PAR shift to state 2
+-- On INT shift to state 3
+-- On ID shift to state 4
+-- On FUN shift to state 5
+-- On simple_expr shift to state 8
+-- On main shift to state 16
+-- On expr shift to state 17
+-- On app_expr shift to state 10
+## Reductions:
+
+State 1:
+## Known stack suffix:
+## NEG
+## LR(1) items:
+simple_expr -> NEG . [ R_PAR NEG L_PAR INT ID EOF ]
+## Transitions:
+## Reductions:
+-- On R_PAR NEG L_PAR INT ID EOF
+--   reduce production simple_expr -> NEG
+
+State 2:
+## Known stack suffix:
+## L_PAR
+## LR(1) items:
+simple_expr -> L_PAR . ADD R_PAR [ R_PAR NEG L_PAR INT ID EOF ]
+simple_expr -> L_PAR . expr R_PAR [ R_PAR NEG L_PAR INT ID EOF ]
+## Transitions:
+-- On NEG shift to state 1
+-- On L_PAR shift to state 2
+-- On INT shift to state 3
+-- On ID shift to state 4
+-- On FUN shift to state 5
+-- On ADD shift to state 12
+-- On simple_expr shift to state 8
+-- On expr shift to state 14
+-- On app_expr shift to state 10
+## Reductions:
+
+State 3:
+## Known stack suffix:
+## INT
+## LR(1) items:
+simple_expr -> INT . [ R_PAR NEG L_PAR INT ID EOF ]
+## Transitions:
+## Reductions:
+-- On R_PAR NEG L_PAR INT ID EOF
+--   reduce production simple_expr -> INT
+
+State 4:
+## Known stack suffix:
+## ID
+## LR(1) items:
+simple_expr -> ID . [ R_PAR NEG L_PAR INT ID EOF ]
+## Transitions:
+## Reductions:
+-- On R_PAR NEG L_PAR INT ID EOF
+--   reduce production simple_expr -> ID
+
+State 5:
+## Known stack suffix:
+## FUN
+## LR(1) items:
+expr -> FUN . ID ARROW expr [ R_PAR EOF ]
+## Transitions:
+-- On ID shift to state 6
+## Reductions:
+
+State 6:
+## Known stack suffix:
+## FUN ID
+## LR(1) items:
+expr -> FUN ID . ARROW expr [ R_PAR EOF ]
+## Transitions:
+-- On ARROW shift to state 7
+## Reductions:
+
+State 7:
+## Known stack suffix:
+## FUN ID ARROW
+## LR(1) items:
+expr -> FUN ID ARROW . expr [ R_PAR EOF ]
+## Transitions:
+-- On NEG shift to state 1
+-- On L_PAR shift to state 2
+-- On INT shift to state 3
+-- On ID shift to state 4
+-- On FUN shift to state 5
+-- On simple_expr shift to state 8
+-- On expr shift to state 9
+-- On app_expr shift to state 10
+## Reductions:
+
+State 8:
+## Known stack suffix:
+## simple_expr
+## LR(1) items:
+app_expr -> simple_expr . [ NEG L_PAR INT ID ]
+expr -> simple_expr . [ R_PAR EOF ]
+## Transitions:
+## Reductions:
+-- On NEG L_PAR INT ID
+--   reduce production app_expr -> simple_expr
+-- On R_PAR EOF
+--   reduce production expr -> simple_expr
+
+State 9:
+## Known stack suffix:
+## FUN ID ARROW expr
+## LR(1) items:
+expr -> FUN ID ARROW expr . [ R_PAR EOF ]
+## Transitions:
+## Reductions:
+-- On R_PAR EOF
+--   reduce production expr -> FUN ID ARROW expr
+
+State 10:
+## Known stack suffix:
+## app_expr
+## LR(1) items:
+app_expr -> app_expr . simple_expr [ NEG L_PAR INT ID ]
+expr -> app_expr . simple_expr [ R_PAR EOF ]
+## Transitions:
+-- On NEG shift to state 1
+-- On L_PAR shift to state 2
+-- On INT shift to state 3
+-- On ID shift to state 4
+-- On simple_expr shift to state 11
+## Reductions:
+
+State 11:
+## Known stack suffix:
+## app_expr simple_expr
+## LR(1) items:
+app_expr -> app_expr simple_expr . [ NEG L_PAR INT ID ]
+expr -> app_expr simple_expr . [ R_PAR EOF ]
+## Transitions:
+## Reductions:
+-- On NEG L_PAR INT ID
+--   reduce production app_expr -> app_expr simple_expr
+-- On R_PAR EOF
+--   reduce production expr -> app_expr simple_expr
+
+State 12:
+## Known stack suffix:
+## L_PAR ADD
+## LR(1) items:
+simple_expr -> L_PAR ADD . R_PAR [ R_PAR NEG L_PAR INT ID EOF ]
+## Transitions:
+-- On R_PAR shift to state 13
+## Reductions:
+
+State 13:
+## Known stack suffix:
+## L_PAR ADD R_PAR
+## LR(1) items:
+simple_expr -> L_PAR ADD R_PAR . [ R_PAR NEG L_PAR INT ID EOF ]
+## Transitions:
+## Reductions:
+-- On R_PAR NEG L_PAR INT ID EOF
+--   reduce production simple_expr -> L_PAR ADD R_PAR
+
+State 14:
+## Known stack suffix:
+## L_PAR expr
+## LR(1) items:
+simple_expr -> L_PAR expr . R_PAR [ R_PAR NEG L_PAR INT ID EOF ]
+## Transitions:
+-- On R_PAR shift to state 15
+## Reductions:
+
+State 15:
+## Known stack suffix:
+## L_PAR expr R_PAR
+## LR(1) items:
+simple_expr -> L_PAR expr R_PAR . [ R_PAR NEG L_PAR INT ID EOF ]
+## Transitions:
+## Reductions:
+-- On R_PAR NEG L_PAR INT ID EOF
+--   reduce production simple_expr -> L_PAR expr R_PAR
+
+State 16:
+## Known stack suffix:
+## main
+## LR(1) items:
+main' -> main . [ # ]
+## Transitions:
+## Reductions:
+-- On #
+--   accept main
+
+State 17:
+## Known stack suffix:
+## expr
+## LR(1) items:
+main -> expr . EOF [ # ]
+## Transitions:
+-- On EOF shift to state 18
+## Reductions:
+
+State 18:
+## Known stack suffix:
+## expr EOF
+## LR(1) items:
+main -> expr EOF . [ # ]
+## Transitions:
+## Reductions:
+-- On #
+--   reduce production main -> expr EOF
+
