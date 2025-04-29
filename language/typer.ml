@@ -5,11 +5,11 @@ open Typer_util
 let rec type_expr (counter : Counter.t) (env : type_lang Util.Environment.t)
     (expr : expr) =
   match expr with
-  | Cst_i (_, a) -> let _ = Annotation.set_type a TInt in (TInt, [])
-  | Cst_b (_, a) -> let _ = Annotation.set_type a TBool in (TBool, [])
-  | Cst_str (_, a) -> let _ = Annotation.set_type a TString in (TString, [])
+  | Cst_i (_, a) -> Annotation.set_type a TInt ; (TInt, [])
+  | Cst_b (_, a) -> Annotation.set_type a TBool ; (TBool, [])
+  | Cst_str (_, a) -> Annotation.set_type a TString ; (TString, [])
   | Cst_func (b, a) -> let t = type_of_built_in b in
-                       let _ = Annotation.set_type a t in (t, [])
+                       Annotation.set_type a t ; (t, [])
   | Nil (a) -> let u  = Counter.get_fresh counter in
                let t = TList ([0], TUniv 0) in
                let _ = Annotation.set_type a t in
@@ -44,15 +44,15 @@ let rec type_expr (counter : Counter.t) (env : type_lang Util.Environment.t)
      let _  = Annotation.set_type a t in
      (t, constraints1 @ constraints2)
   | App (f, arg, a) ->
-     let (tf, cf) = type_expr counter env f in     
+     let (tf, cf) = type_expr counter env f in
      let (targ, carg) = type_expr counter env arg in
 
      let gen_targ = TUniv (Counter.get_fresh counter) in
      let tret = TUniv (Counter.get_fresh counter) in
-     
+
      let tf = instantiate counter tf in
      let targ = instantiate counter targ in
-     
+
      Annotation.set_type a tret;
      let constraints = [(tf, TFunc ([], gen_targ, tret)) ; (gen_targ, targ)] in
      (tret, cf @ carg @ constraints)
