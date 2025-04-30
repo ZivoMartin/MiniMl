@@ -12,23 +12,23 @@ let l =
 
 --Weak typing--
   rev : 'b -> '_0 
-    constraints : [,'c = 'd -> 'e -> 'd,(,'a)'a -> 'a -> bool = 'f -> 'g,'f = 'e,'g = 'i -> 'j,'i = (,'h)'h list,(,'a)(,'a)'a list -> 'a = 'k -> 'l,'k = 'e,(,'a)'a -> (,'a)'a list -> (,'a)'a list = 'm -> 'n,'m = 'l,'n = 'o -> 'p,'o = 'd,'c = 'q -> 'r,'q = 'p,(,'a)(,'a)'a list -> (,'a)'a list = 's -> 't,'s = 'e,'r = 'u -> 'v,'u = 't,'j = bool,'d = 'v,'d -> 'e -> 'd = 'x -> 'y,'x = (,'w)'w list,'y = 'z -> '_0,'z = 'b]
+    constraints : [,'c = 'd -> 'e -> 'd,(,'a)'a -> 'a -> bool = 'f -> 'g,'f = 'e,'g = 'i -> 'j,'i = (,'h)'h list,(,'a)'a list -> 'a = 'k -> 'l,'k = 'e,(,'a)'a -> 'a list -> 'a list = 'm -> 'n,'m = 'l,'n = 'o -> 'p,'o = 'd,'c = 'q -> 'r,'q = 'p,(,'a)'a list -> 'a list = 's -> 't,'s = 'e,'r = 'u -> 'v,'u = 't,'j = bool,'d = 'v,'d -> 'e -> 'd = 'x -> 'y,'x = (,'w)'w list,'y = 'z -> '_0,'z = 'b]
   l : '_20 
-    constraints : [,(,'a)'a -> (,'a)'a list -> (,'a)'a list = '_2 -> '_3,'_2 = int,(,'a)'a -> (,'a)'a list -> (,'a)'a list = '_4 -> '_5,'_4 = int,(,'a)'a -> (,'a)'a list -> (,'a)'a list = '_6 -> '_7,'_6 = int,(,'a)'a -> (,'a)'a list -> (,'a)'a list = '_8 -> '_9,'_8 = int,'_9 = '_11 -> '_12,'_11 = (,'�)'_10 list,'_7 = '_13 -> '_14,'_13 = '_12,'_5 = '_15 -> '_16,'_15 = '_14,'_3 = '_17 -> '_18,'_17 = '_16,'b -> '_0 = '_19 -> '_20,'_19 = '_18]
+    constraints : [,(,'a)'a -> 'a list -> 'a list = '_2 -> '_3,'_2 = int,(,'a)'a -> 'a list -> 'a list = '_4 -> '_5,'_4 = int,(,'a)'a -> 'a list -> 'a list = '_6 -> '_7,'_6 = int,(,'a)'a -> 'a list -> 'a list = '_8 -> '_9,'_8 = int,'_9 = '_11 -> '_12,'_11 = (,'�)'_10 list,'_7 = '_13 -> '_14,'_13 = '_12,'_5 = '_15 -> '_16,'_15 = '_14,'_3 = '_17 -> '_18,'_17 = '_16,'b -> '_0 = '_19 -> '_20,'_19 = '_18]
   ---Solving constraints:
-  rev : (,'w)'w list -> (,'w)'w list
-  l : (,'�)'_10 list
+  rev : (,'w)'w list -> 'w list
+  l : int list
   Annotated program:
-  let rev (l : (,'w)'w list) : (,'w)'w list =
-    let rec aux (acc : (,'w)'w list) (l : (,'w)'w list) : (,'w)'w list =
+  let rev (l : (,'w)'w list) : 'w list =
+    let rec aux (acc : 'w list) (l : (,'w)'w list) : 'w list =
       if (l : (,'w)'w list) = [] then
-        (acc : (,'w)'w list)
+        (acc : 'w list)
       else
-        (aux : (,'w)'w list -> (,'w)'w list -> (,'w)'w list) ((hd (l : (,'w)'w list)) :: (acc : (,'w)'w list)) (tl (l : (,'w)'w list))
+        (aux : 'w list -> (,'w)'w list -> 'w list) ((hd (l : (,'w)'w list)) :: (acc : 'w list)) (tl (l : (,'w)'w list))
     in
-    (aux : (,'w)'w list -> (,'w)'w list -> (,'w)'w list) [] (l : (,'w)'w list)
-  let l : (,'�)'_10 list =
-    (rev : (,'�)'_10 list -> (,'�)'_10 list) (1 :: (2 :: (3 :: (4 :: []))))
+    (aux : 'w list -> (,'w)'w list -> 'w list) [] (l : (,'w)'w list)
+  let l : int list =
+    (rev : (,'�)'_8 list -> int list) (1 :: (2 :: (3 :: (4 :: []))))
   
   
 Execution of the program:

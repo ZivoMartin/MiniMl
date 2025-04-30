@@ -33,12 +33,9 @@ let rec type_expr (counter : Counter.t) (env : type_lang Util.Environment.t)
        if is_rec then
          let _ = Util.Environment.add env name fresh in
          let (t, constraints) = type_expr counter env e1 in
-         Util.Environment.remove env name;
          (t, (fresh, t) :: constraints)
        else
-         let (t, constraints) = type_expr counter env e1 in
-         let _ = Util.Environment.add env name t in
-         (t, constraints) in
+         type_expr counter env e1 in
      Util.Environment.add env name targ;
      let (t, constraints) = type_expr counter env e2 in
      Annotation.set_type a t;
